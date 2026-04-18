@@ -1,1491 +1,495 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Польский с Екатериной</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    .lang-landing {
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #5d5d5d;
-      --primary: #F99CA9;
-      --primary-dark: #f57d90;
-      --soft: #fff5f7;
-      --line: rgba(17, 17, 17, 0.08);
-      --shadow: 0 20px 60px rgba(17, 17, 17, 0.08);
-      --radius-xl: 30px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(180deg, #ffffff 0%, #fffafb 100%);
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-      min-height: 100vh;
-    }
-
-    .lang-landing * {
-      box-sizing: border-box;
-    }
-
-    .lang-landing img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .lang-landing a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .lang-landing h1,
-    .lang-landing h2,
-    .lang-landing h3,
-    .lang-landing p,
-    .lang-landing li,
-    .lang-landing a,
-    .lang-landing button,
-    .lang-landing input,
-    .lang-landing label,
-    .lang-landing span,
-    .lang-landing div {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .lang-landing .ll-container {
-      width: 100%;
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 20px;
-      position: relative;
-      z-index: 3;
-    }
-
-    .lang-landing section {
-      padding: 46px 0;
-      position: relative;
-      z-index: 3;
-    }
-
-    .lang-landing h1,
-    .lang-landing h2,
-    .lang-landing h3,
-    .lang-landing p {
-      margin: 0;
-    }
-
-    /* фон */
-    .lang-landing .ll-bg-decor {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(10px);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .lang-landing .ll-bg-decor-1 {
-      width: 280px;
-      height: 280px;
-      background: rgba(249, 156, 169, 0.14);
-      top: 100px;
-      left: -90px;
-    }
-
-    .lang-landing .ll-bg-decor-2 {
-      width: 220px;
-      height: 220px;
-      background: rgba(249, 156, 169, 0.12);
-      top: 780px;
-      right: -60px;
-    }
-
-    .lang-landing .ll-bg-decor-3 {
-      width: 250px;
-      height: 250px;
-      background: rgba(17, 17, 17, 0.03);
-      bottom: 150px;
-      left: 40px;
-    }
-
-    .lang-landing .ll-book {
-      position: absolute;
-      z-index: 1;
-      font-size: 90px;
-      opacity: 0.14;
-      filter: blur(1.5px);
-      pointer-events: none;
-      user-select: none;
-      transform: rotate(-12deg);
-    }
-
-    .lang-landing .ll-book-1 { top: 180px; right: 4%; }
-    .lang-landing .ll-book-2 { top: 980px; left: 3%; transform: rotate(10deg); }
-    .lang-landing .ll-book-3 { bottom: 420px; right: 7%; transform: rotate(-8deg); }
-    .lang-landing .ll-book-4 { bottom: 120px; left: 6%; transform: rotate(14deg); }
-
-    /* popup */
-    .lang-landing .ll-popup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(17, 17, 17, 0.58);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 16px;
-      z-index: 9999;
-      animation: llFadeIn .35s ease;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .lang-landing .ll-popup-overlay.ll-hidden {
-      display: none;
-    }
-
-    .lang-landing .ll-popup-window {
-      width: 100%;
-      max-width: 1040px;
-      background: linear-gradient(180deg, #fff9fa 0%, #ffffff 100%);
-      border-radius: 34px;
-      box-shadow: 0 28px 90px rgba(17, 17, 17, 0.22);
-      position: relative;
-      overflow: visible;
-      animation: llPopUp .45s ease;
-      border: 1px solid rgba(255,255,255,0.9);
-      margin: auto 0;
-    }
-
-    .lang-landing .ll-popup-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: stretch;
-    }
-
-    .lang-landing .ll-popup-left {
-      padding: 44px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .lang-landing .ll-popup-right {
-      background:
-        radial-gradient(circle at 30% 25%, rgba(249,156,169,0.24), transparent 28%),
-        radial-gradient(circle at 75% 70%, rgba(17,17,17,0.05), transparent 18%),
-        linear-gradient(180deg, #fff1f4 0%, #fffafb 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px;
-    }
-
-    .lang-landing .ll-popup-photo-wrap {
-      width: 100%;
-      max-width: 360px;
-      border-radius: 28px;
-      overflow: hidden;
-      background: #fff;
-      padding: 10px;
-      box-shadow: 0 12px 36px rgba(17,17,17,0.08);
-      transform: rotate(-3deg);
-    }
-
-    .lang-landing .ll-popup-photo-wrap img {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
-      border-radius: 22px;
-    }
-
-    .lang-landing .ll-popup-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      border: none;
-      background: #111111;
-      color: #ffffff;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-      z-index: 6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 400;
-    }
-
-    .lang-landing .ll-popup-close:hover {
-      transform: scale(1.05);
-    }
-
-    .lang-landing .ll-popup-badge,
-    .lang-landing .ll-hero-badge,
-    .lang-landing .ll-section-label,
-    .lang-landing .ll-hero-tags span,
-    .lang-landing .ll-mini-stickers span,
-    .lang-landing .ll-popular-badge,
-    .lang-landing .ll-popup-sticker {
-      font-weight: 600;
-    }
-
-    .lang-landing .ll-popup-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(249,156,169,0.2);
-      color: #111111;
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .lang-landing .ll-popup-badge::before {
-      content: "✦";
-      font-size: 14px;
-    }
-
-    .lang-landing .ll-popup-left h2 {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.08;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      max-width: 560px;
-    }
-
-    .lang-landing .ll-popup-left p,
-    .lang-landing .ll-subtitle,
-    .lang-landing .ll-card p,
-    .lang-landing .ll-price-note,
-    .lang-landing .ll-acc-content p,
-    .lang-landing .ll-review-text,
-    .lang-landing .ll-cta-box p,
-    .lang-landing .ll-form input,
-    .lang-landing .ll-list li,
-    .lang-landing .ll-photo-item,
-    .lang-landing .ll-privacy-note,
-    .lang-landing .ll-footer-note p,
-    .lang-landing .ll-telegram-text {
-      font-weight: 400;
-    }
-
-    .lang-landing .ll-popup-left p {
-      margin-top: 16px;
-      max-width: 520px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.65;
-    }
-
-    .lang-landing .ll-popup-buttons {
-      display: grid;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .lang-landing .ll-popup-btn {
-      display: block;
-      width: 100%;
-      padding: 20px 22px;
-      border-radius: 22px;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 1.4;
-      transition: .25s ease;
-      border: 1px solid var(--line);
-    }
-
-    .lang-landing .ll-popup-btn-main {
-      background: var(--primary);
-      color: #111111;
-      box-shadow: 0 14px 32px rgba(249,156,169,0.28);
-    }
-
-    .lang-landing .ll-popup-btn-main:hover {
-      transform: translateY(-2px);
-      background: var(--primary-dark);
-    }
-
-    .lang-landing .ll-popup-btn-light {
-      background: #ffffff;
-      color: #111111;
-    }
-
-    .lang-landing .ll-popup-btn-light:hover {
-      transform: translateY(-2px);
-      background: #fff7f8;
-    }
-
-    .lang-landing .ll-popup-sticker {
-      position: absolute;
-      z-index: 4;
-      border-radius: 999px;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      animation: llFloat 3.5s ease-in-out infinite;
-      user-select: none;
-    }
-
-    .lang-landing .ll-sticker-1 {
-      top: 22px;
-      left: 26px;
-      background: #111111;
-      color: #ffffff;
-      padding: 10px 16px;
-      font-size: 12px;
-      transform: rotate(-10deg);
-    }
-
-    .lang-landing .ll-sticker-2 {
-      bottom: 26px;
-      left: 42px;
-      background: #F99CA9;
-      color: #111111;
-      padding: 14px 18px;
-      font-size: 16px;
-      transform: rotate(8deg);
-      animation-delay: .4s;
-    }
-
-    .lang-landing .ll-sticker-3 {
-      top: 68px;
-      right: 86px;
-      background: #ffffff;
-      color: #111111;
-      border: 1px solid rgba(17,17,17,0.08);
-      padding: 12px 18px;
-      font-size: 15px;
-      transform: rotate(12deg);
-      animation-delay: .8s;
-    }
-
-    /* hero */
-    .lang-landing .ll-hero {
-      padding: 96px 0 56px;
-      text-align: center;
-      position: relative;
-      z-index: 3;
-    }
-
-    .lang-landing .ll-hero-badge,
-    .lang-landing .ll-section-label {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(249,156,169,0.16);
-      color: #111111;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .lang-landing h1 {
-      font-size: clamp(38px, 6vw, 72px);
-      line-height: 1.02;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      max-width: 980px;
-      margin: 0 auto 20px;
-    }
-
-    .lang-landing h1 span {
-      color: var(--primary);
-    }
-
-    .lang-landing .ll-subtitle {
-      max-width: 760px;
-      margin: 0 auto;
-      font-size: 21px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .lang-landing .ll-hero-buttons {
-      margin-top: 30px;
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .lang-landing .ll-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 56px;
-      padding: 16px 28px;
-      border-radius: 18px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: .25s ease;
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
-
-    .lang-landing .ll-btn-primary {
-      background: var(--primary);
-      color: #111111;
-      box-shadow: 0 14px 30px rgba(249,156,169,0.24);
-    }
-
-    .lang-landing .ll-btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .lang-landing .ll-btn-secondary {
-      background: #ffffff;
-      color: #111111;
-      border-color: var(--line);
-    }
-
-    .lang-landing .ll-btn-secondary:hover {
-      background: #fff5f7;
-      transform: translateY(-2px);
-    }
-
-    .lang-landing .ll-btn-full {
-      width: 100%;
-    }
-
-    .lang-landing .ll-hero-tags {
-      margin-top: 24px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .lang-landing .ll-hero-tags span,
-    .lang-landing .ll-mini-stickers span {
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--line);
-      font-size: 14px;
-    }
-
-    /* layouts */
-    .lang-landing .ll-about-grid,
-    .lang-landing .ll-grid-3 {
-      display: grid;
-      gap: 24px;
-    }
-
-    .lang-landing .ll-about-grid {
-      grid-template-columns: 1.2fr 0.8fr;
-    }
-
-    .lang-landing .ll-grid-3 {
-      grid-template-columns: repeat(3, 1fr);
-      margin-top: 26px;
-    }
-
-    .lang-landing .ll-card,
-    .lang-landing .ll-price-card,
-    .lang-landing .ll-cta-box,
-    .lang-landing .ll-photo-strip,
-    .lang-landing .ll-acc-item,
-    .lang-landing .ll-telegram-box {
-      background: rgba(255,255,255,0.92);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-    }
-
-    .lang-landing .ll-card,
-    .lang-landing .ll-price-card {
-      padding: 28px;
-    }
-
-    .lang-landing h2 {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin: 8px 0 12px;
-    }
-
-    .lang-landing h3 {
-      font-size: 25px;
-      line-height: 1.25;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .lang-landing .ll-center {
-      text-align: center;
-    }
-
-    .lang-landing p,
-    .lang-landing .ll-price-note,
-    .lang-landing .ll-acc-content p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    /* about */
-    .lang-landing .ll-about-main {
-      overflow: hidden;
-    }
-
-    .lang-landing .ll-about-box {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      margin-top: 8px;
-    }
-
-    .lang-landing .ll-about-photo {
-      flex: 0 0 220px;
-    }
-
-    .lang-landing .ll-about-photo img {
-      width: 220px;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 26px;
-      border: 1px solid var(--line);
-      box-shadow: 0 10px 28px rgba(17,17,17,0.08);
-    }
-
-    .lang-landing .ll-about-text {
-      flex: 1;
-    }
-
-    .lang-landing .ll-about-text p + p {
-      margin-top: 12px;
-    }
-
-    .lang-landing .ll-about-side {
-      background: linear-gradient(180deg, rgba(249,156,169,0.14), rgba(255,255,255,0.95));
-    }
-
-    .lang-landing .ll-mini-stickers {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    /* telegram block */
-    .lang-landing .ll-telegram-box {
-      margin-top: 24px;
-      padding: 26px;
-      background: linear-gradient(180deg, #fff8fa 0%, #ffffff 100%);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .lang-landing .ll-telegram-title {
-      font-size: 24px;
-      line-height: 1.3;
-      font-weight: 700;
-      color: #111111;
-      margin-bottom: 8px;
-    }
-
-    .lang-landing .ll-telegram-text {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .lang-landing .ll-telegram-btn {
-      flex: 0 0 auto;
-      white-space: nowrap;
-    }
-
-    /* list */
-    .lang-landing .ll-list {
-      list-style: none;
-      padding: 0;
-      margin: 18px 0 0;
-    }
-
-    .lang-landing .ll-list li {
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 12px;
-      color: #111111;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .lang-landing .ll-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--primary);
-      font-size: 24px;
-      line-height: 1;
-    }
-
-    /* benefits */
-    .lang-landing .ll-feature-card {
-      position: relative;
-    }
-
-    .lang-landing .ll-icon-bubble {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
-      background: rgba(249,156,169,0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-
-    /* price */
-    .lang-landing .ll-price-card {
-      position: relative;
-    }
-
-    .lang-landing .ll-price-card-accent {
-      border: 1px solid rgba(249,156,169,0.45);
-      background: linear-gradient(180deg, #fff6f8 0%, #ffffff 100%);
-      transform: translateY(-8px);
-    }
-
-    .lang-landing .ll-popular-badge {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      background: #111111;
-      color: #ffffff;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-    }
-
-    .lang-landing .ll-card-top {
-      margin-bottom: 14px;
-    }
-
-    .lang-landing .ll-price-title {
-      font-size: 24px;
-      line-height: 1.25;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .lang-landing .ll-price-value {
-      font-size: 34px;
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 8px;
-      color: #111111;
-    }
-
-    /* reviews */
-    .lang-landing .ll-photo-strip {
-      padding: 26px;
-      margin-top: 26px;
-      background: linear-gradient(180deg, #fff8fa 0%, #ffffff 100%);
-    }
-
-    .lang-landing .ll-photo-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .lang-landing .ll-photo-item {
-      min-height: 180px;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid rgba(17,17,17,0.08);
-      background: rgba(249,156,169,0.08);
-    }
-
-    .lang-landing .ll-photo-item img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .lang-landing .ll-reviews-grid {
-      margin-top: 24px;
-    }
-
-    .lang-landing .ll-review-text {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #111111;
-      font-style: italic;
-    }
-
-    .lang-landing .ll-review-author {
-      margin-top: 16px;
-      font-weight: 600;
-      color: #111111;
-    }
-
-    /* faq */
-    .lang-landing .ll-accordion {
-      max-width: 920px;
-      margin: 28px auto 0;
-      display: grid;
-      gap: 14px;
-    }
-
-    .lang-landing .ll-acc-item {
-      overflow: hidden;
-    }
-
-    .lang-landing .ll-acc-btn {
-      width: 100%;
-      background: transparent;
-      border: none;
-      text-align: left;
-      padding: 22px 24px;
-      font-size: 18px;
-      font-weight: 600;
-      color: #111111;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .lang-landing .ll-acc-btn::after {
-      content: "+";
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 28px;
-      color: var(--primary);
-      font-weight: 400;
-    }
-
-    .lang-landing .ll-acc-item.active .ll-acc-btn::after {
-      content: "−";
-    }
-
-    .lang-landing .ll-acc-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .3s ease, padding .3s ease;
-      padding: 0 24px;
-    }
-
-    .lang-landing .ll-acc-item.active .ll-acc-content {
-      max-height: 220px;
-      padding: 0 24px 22px;
-    }
-
-    /* form */
-    .lang-landing .ll-cta-box {
-      padding: 34px;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 28px;
-      align-items: center;
-      background: linear-gradient(180deg, #fff9fa 0%, #ffffff 100%);
-    }
-
-    .lang-landing .ll-form {
-      display: grid;
-      gap: 14px;
-    }
-
-    .lang-landing .ll-form input[type="text"],
-    .lang-landing .ll-form input[type="tel"] {
-      width: 100%;
-      height: 56px;
-      padding: 0 18px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: #fff;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .lang-landing .ll-form input:focus {
-      border-color: rgba(249,156,169,0.7);
-      box-shadow: 0 0 0 4px rgba(249,156,169,0.12);
-    }
-
-    .lang-landing .ll-checkbox {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 12px;
-      color: #666;
-      line-height: 1.6;
-      margin-top: 2px;
-    }
-
-    .lang-landing .ll-checkbox input {
-      margin-top: 3px;
-      accent-color: #F99CA9;
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
-    }
-
-    .lang-landing .ll-privacy-note {
-      font-size: 12px;
-      line-height: 1.6;
-      color: #777777;
-    }
-
-    .lang-landing .ll-form-message {
-      display: none;
-      font-size: 14px;
-      line-height: 1.5;
-      padding: 12px 14px;
-      border-radius: 14px;
-    }
-
-    .lang-landing .ll-form-message.success {
-      display: block;
-      background: rgba(249,156,169,0.14);
-      color: #111111;
-      border: 1px solid rgba(249,156,169,0.35);
-    }
-
-    .lang-landing .ll-form-message.error {
-      display: block;
-      background: rgba(255, 236, 236, 0.9);
-      color: #8b1e2d;
-      border: 1px solid rgba(139, 30, 45, 0.18);
-    }
-
-    /* footer */
-    .lang-landing .ll-footer-note {
-      padding: 18px 0 28px;
-      position: relative;
-      z-index: 3;
-    }
-
-    .lang-landing .ll-footer-note .ll-container {
-      border-top: 1px solid rgba(17, 17, 17, 0.08);
-      padding-top: 14px;
-    }
-
-    .lang-landing .ll-footer-note p {
-      margin: 0 0 4px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: #777777;
-    }
-
-    /* animations */
-    @keyframes llFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes llPopUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px) scale(.97);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes llFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(2deg); }
-    }
-
-    /* adaptive */
-    @media (max-width: 980px) {
-      .lang-landing .ll-about-grid,
-      .lang-landing .ll-grid-3,
-      .lang-landing .ll-cta-box,
-      .lang-landing .ll-popup-grid,
-      .lang-landing .ll-telegram-box {
-        grid-template-columns: 1fr;
-      }
-
-      .lang-landing .ll-price-card-accent {
-        transform: none;
-      }
-
-      .lang-landing .ll-photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .lang-landing .ll-popup-left {
-        padding: 34px 22px 22px;
-      }
-
-      .lang-landing .ll-popup-right {
-        padding-top: 0;
-      }
-
-      .lang-landing .ll-popup-photo-wrap {
-        transform: none;
-        max-width: 320px;
-      }
-
-      .lang-landing .ll-about-box {
-        flex-direction: column;
-      }
-
-      .lang-landing .ll-about-photo img {
-        width: 180px;
-        height: 220px;
-      }
-
-      .lang-landing .ll-hero {
-        padding-top: 82px;
-      }
-
-      .lang-landing .ll-telegram-box {
-        display: block;
-      }
-
-      .lang-landing .ll-telegram-btn {
-        margin-top: 16px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .lang-landing section {
-        padding: 34px 0;
-      }
-
-      .lang-landing .ll-card,
-      .lang-landing .ll-price-card,
-      .lang-landing .ll-photo-strip,
-      .lang-landing .ll-cta-box,
-      .lang-landing .ll-telegram-box {
-        padding: 22px;
-      }
-
-      .lang-landing h1 {
-        font-size: 42px;
-      }
-
-      .lang-landing .ll-subtitle {
-        font-size: 17px;
-      }
-
-      .lang-landing .ll-btn,
-      .lang-landing .ll-hero-buttons a {
-        width: 100%;
-      }
-
-      .lang-landing .ll-hero-buttons {
-        flex-direction: column;
-      }
-
-      .lang-landing .ll-hero-tags span,
-      .lang-landing .ll-mini-stickers span {
-        font-size: 13px;
-      }
-
-      .lang-landing .ll-photo-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .lang-landing .ll-popup-overlay {
-        padding: 10px;
-        align-items: flex-start;
-      }
-
-      .lang-landing .ll-popup-window {
-        border-radius: 24px;
-        margin: 0;
-      }
-
-      .lang-landing .ll-popup-left {
-        padding: 56px 18px 18px;
-      }
-
-      .lang-landing .ll-popup-btn {
-        font-size: 16px;
-        padding: 16px 16px;
-      }
-
-      .lang-landing .ll-popup-left h2 {
-        font-size: 34px;
-      }
-
-      .lang-landing .ll-popup-sticker {
-        display: none;
-      }
-
-      .lang-landing .ll-popup-photo-wrap img {
-        height: 280px;
-      }
-
-      .lang-landing .ll-popup-close {
-        top: 10px;
-        right: 10px;
-        width: 42px;
-        height: 42px;
-        font-size: 24px;
-      }
-
-      .lang-landing .ll-book {
-        font-size: 64px;
-        opacity: 0.10;
-      }
-
-      .lang-landing .ll-photo-item img {
-        height: 220px;
-      }
-
-      .lang-landing .ll-telegram-title {
-        font-size: 22px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<section class="lang-landing">
-
-  <div class="ll-popup-overlay" id="giftPopup">
-    <div class="ll-popup-window">
-      <button class="ll-popup-close" id="closePopup" aria-label="Закрыть">×</button>
-
-      <div class="ll-popup-sticker ll-sticker-1">free</div>
-      <div class="ll-popup-sticker ll-sticker-2">PL</div>
-      <div class="ll-popup-sticker ll-sticker-3">B1</div>
-
-      <div class="ll-popup-grid">
-        <div class="ll-popup-left">
-          <div class="ll-popup-badge">Бесплатные материалы</div>
-          <h2>Забери бесплатные материалы для изучения польского языка</h2>
-          <p>
-            Полезные материалы, которые помогут быстрее начать говорить,
-            понимать живую речь и увереннее готовиться к экзамену.
-          </p>
-
-          <div class="ll-popup-buttons">
-            <a href="https://buymeacoffee.com/tiktokbezrozovych/e/520142" target="_blank" rel="noopener noreferrer" class="ll-popup-btn ll-popup-btn-main">
-              Гайд: топ 35 незаезженных и реальных фраз, которые поляки используют каждый день
-            </a>
-
-            <a href="https://buymeacoffee.com/tiktokbezrozovych/e/519998" target="_blank" rel="noopener noreferrer" class="ll-popup-btn ll-popup-btn-light">
-              Гайд: набор по подготовке к сдаче польского экзамена B1
-            </a>
-          </div>
-        </div>
-
-        <div class="ll-popup-right">
-          <div class="ll-popup-photo-wrap">
-            <img src="popup.jpg" alt="Бесплатные материалы по польскому языку">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ll-bg-decor ll-bg-decor-1"></div>
-  <div class="ll-bg-decor ll-bg-decor-2"></div>
-  <div class="ll-bg-decor ll-bg-decor-3"></div>
-
-  <div class="ll-book ll-book-1">📚</div>
-  <div class="ll-book ll-book-2">📖</div>
-  <div class="ll-book ll-book-3">📚</div>
-  <div class="ll-book ll-book-4">📘</div>
-
-  <header class="ll-hero">
-    <div class="ll-container">
-      <div class="ll-hero-badge">Онлайн-уроки польского и английского</div>
-
-      <h1>
-        Заговорите на <span>польском языке</span> уверенно и без страха
-      </h1>
-
-      <p class="ll-subtitle">
-        Индивидуальные занятия с понятной системой, живой практикой, современной лексикой
-        и упором на результат.
-      </p>
-
-      <div class="ll-hero-buttons">
-        <a href="#signup" class="ll-btn ll-btn-primary">Записаться на занятие</a>
-        <a href="#programs" class="ll-btn ll-btn-secondary">Посмотреть форматы</a>
-      </div>
-
-      <div class="ll-hero-tags">
-        <span>польский</span>
-        <span>английский</span>
-        <span>экзамен B1</span>
-        <span>живой язык</span>
-      </div>
-    </div>
-  </header>
-
-  <section class="ll-about">
-    <div class="ll-container">
-      <div class="ll-about-grid">
-        <div class="ll-card ll-about-main">
-          <div class="ll-section-label">О преподавателе</div>
-
-          <div class="ll-about-box">
-            <div class="ll-about-photo">
-              <img src="teacher.jpg" alt="Фото преподавателя">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Польский с Екатериной</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="lang-landing">
+      <div class="ll-popup-overlay" id="giftPopup">
+        <div class="ll-popup-window">
+          <button class="ll-popup-close" id="closePopup" aria-label="Закрыть">
+            ×
+          </button>
+
+          <div class="ll-popup-sticker ll-sticker-1">free</div>
+          <div class="ll-popup-sticker ll-sticker-2">PL</div>
+          <div class="ll-popup-sticker ll-sticker-3">B1</div>
+
+          <div class="ll-popup-grid">
+            <div class="ll-popup-left">
+              <div class="ll-popup-badge">Бесплатные материалы</div>
+              <h2>Забери бесплатные материалы для изучения польского языка</h2>
+              <p>
+                Полезные материалы, которые помогут быстрее начать говорить,
+                понимать живую речь и увереннее готовиться к экзамену.
+              </p>
+
+              <div class="ll-popup-buttons">
+                <a
+                  href="https://buymeacoffee.com/tiktokbezrozovych/e/520142"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="ll-popup-btn ll-popup-btn-main"
+                >
+                  Гайд: топ 35 незаезженных и реальных фраз, которые поляки
+                  используют каждый день
+                </a>
+
+                <a
+                  href="https://buymeacoffee.com/tiktokbezrozovych/e/519998"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="ll-popup-btn ll-popup-btn-light"
+                >
+                  Гайд: набор по подготовке к сдаче польского экзамена B1
+                </a>
+              </div>
             </div>
 
-            <div class="ll-about-text">
-              <h2>Меня зовут Екатерина</h2>
+            <div class="ll-popup-right">
+              <div class="ll-popup-photo-wrap">
+                <img
+                  src="popup.jpg"
+                  alt="Бесплатные материалы по польскому языку"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="ll-bg-decor ll-bg-decor-1"></div>
+      <div class="ll-bg-decor ll-bg-decor-2"></div>
+      <div class="ll-bg-decor ll-bg-decor-3"></div>
+
+      <div class="ll-book ll-book-1">📚</div>
+      <div class="ll-book ll-book-2">📖</div>
+      <div class="ll-book ll-book-3">📚</div>
+      <div class="ll-book ll-book-4">📘</div>
+
+      <header class="ll-hero">
+        <div class="ll-container">
+          <div class="ll-hero-badge">Онлайн-уроки польского и английского</div>
+
+          <h1>
+            Заговорите на <span>польском языке</span> уверенно и без страха
+          </h1>
+
+          <p class="ll-subtitle">
+            Индивидуальные занятия с понятной системой, живой практикой,
+            современной лексикой и упором на результат.
+          </p>
+
+          <div class="ll-hero-buttons">
+            <a href="#signup" class="ll-btn ll-btn-primary ll-btn-animation"
+              >Записаться на занятие</a
+            >
+            <a href="#programs" class="ll-btn ll-btn-secondary ll-btn-animation"
+              >Посмотреть форматы</a
+            >
+          </div>
+
+          <div class="ll-hero-tags">
+            <span>польский</span>
+            <span>английский</span>
+            <span>экзамен B1</span>
+            <span>живой язык</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="ll-about">
+        <div class="ll-container">
+          <div class="ll-about-grid">
+            <div class="ll-card ll-about-main">
+              <div class="ll-section-label">О преподавателе</div>
+
+              <div class="ll-about-box">
+                <div class="ll-about-photo">
+                  <img src="teacher.jpg" alt="Фото преподавателя" />
+                </div>
+
+                <div class="ll-about-text">
+                  <h2>Меня зовут Екатерина</h2>
+
+                  <p>
+                    Я обучаю польскому и английскому. Прошла (и продолжаю
+                    проходить) все этапы обучения в Европе.
+                  </p>
+
+                  <p>
+                    Преподаю уже в течение двух лет и помогаю своим ученикам
+                    достигать поставленные цели.
+                  </p>
+
+                  <p>
+                    Моя задача - помочь вам заговорить, использовать не
+                    заезженные фразы, освоить грамматику и улучшить
+                    произношение.
+                  </p>
+
+                  <p>Если ваша цель - экзамен уровня B1, смело обращайтесь.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ll-card ll-about-side">
+              <h3>С чем помогу</h3>
+              <ul class="ll-list">
+                <li>Подготовка к экзамену B1</li>
+                <li>Разговорный язык для путешествий и жизни</li>
+                <li>Повышение успеваемости в школе</li>
+                <li>Постановка системного обучения с нуля</li>
+              </ul>
+
+              <div class="ll-mini-stickers">
+                <span>говорение</span>
+                <span>грамматика</span>
+                <span>произношение</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ll-telegram-box">
+            <div>
+              <div class="ll-section-label">Telegram</div>
+              <div class="ll-telegram-title">
+                Телеграмм канал с ежедневными материалами для изучения польского
+              </div>
+              <p class="ll-telegram-text">Забирай доступ по кнопке.</p>
+            </div>
+
+            <a
+              href="https://t.me/polski_mood/64"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ll-btn ll-btn-primary ll-telegram-btn"
+            >
+              Присоединиться
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="ll-benefits">
+        <div class="ll-container">
+          <div class="ll-section-label ll-center">Почему выбирают меня</div>
+          <h2 class="ll-center">Комфортные уроки и реальный прогресс</h2>
+
+          <div class="ll-grid-3">
+            <div class="ll-card ll-feature-card">
+              <div class="ll-icon-bubble">🎯</div>
+              <h3>Под вашу цель</h3>
               <p>
-                Я обучаю польскому и английскому. Прошла
-                (и продолжаю проходить) все этапы обучения в Европе.
+                Программа подстраивается под ваши задачи: переезд, экзамен B1,
+                разговорный польский, школа или работа.
               </p>
+            </div>
 
+            <div class="ll-card ll-feature-card">
+              <div class="ll-icon-bubble">🗣</div>
+              <h3>Живая речь</h3>
               <p>
-                Преподаю уже в течение двух лет и помогаю своим ученикам
-                достигать поставленные цели.
+                Меньше сухой теории, больше реальной речи, полезных выражений и
+                уверенности в разговоре.
               </p>
+            </div>
 
+            <div class="ll-card ll-feature-card">
+              <div class="ll-icon-bubble">📚</div>
+              <h3>Понятная система</h3>
               <p>
-                Моя задача - помочь вам заговорить, использовать не заезженные фразы,
-                освоить грамматику и улучшить произношение.
-              </p>
-
-              <p>
-                Если ваша цель - экзамен уровня B1, смело обращайтесь.
+                Объясняю сложное просто и даю структуру, чтобы вы не терялись в
+                темах и знали, куда двигаетесь.
               </p>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="ll-card ll-about-side">
-          <h3>С чем помогу</h3>
-          <ul class="ll-list">
-            <li>Подготовка к экзамену B1</li>
-            <li>Разговорный язык для путешествий и жизни</li>
-            <li>Повышение успеваемости в школе</li>
-            <li>Постановка системного обучения с нуля</li>
-          </ul>
+      <section class="ll-programs" id="programs">
+        <div class="ll-container">
+          <div class="ll-section-label ll-center">Форматы занятий</div>
+          <h2 class="ll-center">Выберите удобный формат</h2>
 
-          <div class="ll-mini-stickers">
-            <span>говорение</span>
-            <span>грамматика</span>
-            <span>произношение</span>
+          <div class="ll-grid-3">
+            <div class="ll-price-card">
+              <div>
+                <div class="ll-card-top">
+                  <div class="ll-price-title">Индивидуально</div>
+                  <div class="ll-price-value">от 80 zł</div>
+                  <div class="ll-price-note">60 минут</div>
+                </div>
+
+                <ul class="ll-list">
+                  <li>Персональная программа</li>
+                  <li>Гибкий график</li>
+                  <li>Домашние задания и обратная связь</li>
+                </ul>
+              </div>
+
+              <a
+                href="#signup"
+                class="ll-btn ll-btn-primary ll-btn-full ll-btn-animation"
+                >Записаться</a
+              >
+            </div>
+
+            <div class="ll-price-card ll-price-card-accent">
+              <div class="ll-popular-badge">Популярно</div>
+
+              <div>
+                <div class="ll-card-top">
+                  <div class="ll-price-title">
+                    Индивидуальный трёхмесячный курс грамматики до уровня B1
+                  </div>
+                  <div class="ll-price-value">2800 zł</div>
+                  <div class="ll-price-note">полный курс</div>
+                </div>
+
+                <ul class="ll-list">
+                  <li>35 часов практики</li>
+                  <li>Готовые материалы с нуля до профи</li>
+                  <li>Комфортный темп</li>
+                  <li>Возможность разделить платёж на 2 или 3 части</li>
+                </ul>
+              </div>
+
+              <a
+                href="#signup"
+                class="ll-btn ll-btn-primary ll-btn-full ll-btn-animation"
+                >Узнать подробнее</a
+              >
+            </div>
+
+            <div class="ll-price-card">
+              <div>
+                <div class="ll-card-top">
+                  <div class="ll-price-title">Женский online speaking club</div>
+                  <div class="ll-price-value">Набор в группы</div>
+                  <div class="ll-price-note">график узнавайте лично у меня</div>
+                </div>
+
+                <ul class="ll-list">
+                  <li>Формат для тех, кто хочет płynnie mówić po polsku</li>
+                  <li>Уровни от A2 до B1</li>
+                  <li>Группы набираются постоянно</li>
+                </ul>
+              </div>
+
+              <a
+                href="#signup"
+                class="ll-btn ll-btn-primary ll-btn-full ll-btn-animation"
+                >Записаться</a
+              >
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="ll-telegram-box">
-        <div>
-          <div class="ll-section-label">Telegram</div>
-          <div class="ll-telegram-title">Телеграмм канал с ежедневными материалами для изучения польского</div>
-          <p class="ll-telegram-text">Забирай доступ по кнопке.</p>
-        </div>
+      <section class="ll-results">
+        <div class="ll-container">
+          <div class="ll-section-label ll-center">Результат</div>
+          <h2 class="ll-center">Что получают мои ученики</h2>
 
-        <a href="https://t.me/polski_mood/64" target="_blank" rel="noopener noreferrer" class="ll-btn ll-btn-primary ll-telegram-btn">
-          Присоединиться
-        </a>
-      </div>
-    </div>
-  </section>
+          <div class="ll-grid-3">
+            <div class="ll-card">
+              <h3>Через 1 месяц</h3>
+              <p>
+                Больше уверенности, понимание базовой структуры языка и первые
+                диалоги без зажатости.
+              </p>
+            </div>
 
-  <section class="ll-benefits">
-    <div class="ll-container">
-      <div class="ll-section-label ll-center">Почему выбирают меня</div>
-      <h2 class="ll-center">Комфортные уроки и реальный прогресс</h2>
+            <div class="ll-card">
+              <h3>Через 3 месяца</h3>
+              <p>
+                Заметный прогресс в речи, грамматике, словарном запасе и
+                восприятии польского на слух.
+              </p>
+            </div>
 
-      <div class="ll-grid-3">
-        <div class="ll-card ll-feature-card">
-          <div class="ll-icon-bubble">🎯</div>
-          <h3>Под вашу цель</h3>
-          <p>
-            Программа подстраивается под ваши задачи: переезд, экзамен B1,
-            разговорный польский, школа или работа.
-          </p>
-        </div>
-
-        <div class="ll-card ll-feature-card">
-          <div class="ll-icon-bubble">🗣</div>
-          <h3>Живая речь</h3>
-          <p>
-            Меньше сухой теории, больше реальной речи, полезных выражений
-            и уверенности в разговоре.
-          </p>
-        </div>
-
-        <div class="ll-card ll-feature-card">
-          <div class="ll-icon-bubble">📚</div>
-          <h3>Понятная система</h3>
-          <p>
-            Объясняю сложное просто и даю структуру, чтобы вы не терялись
-            в темах и знали, куда двигаетесь.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="ll-programs" id="programs">
-    <div class="ll-container">
-      <div class="ll-section-label ll-center">Форматы занятий</div>
-      <h2 class="ll-center">Выберите удобный формат</h2>
-
-      <div class="ll-grid-3">
-        <div class="ll-price-card">
-          <div class="ll-card-top">
-            <div class="ll-price-title">Индивидуально</div>
-            <div class="ll-price-value">от 80 zł</div>
-            <div class="ll-price-note">60 минут</div>
-          </div>
-
-          <ul class="ll-list">
-            <li>Персональная программа</li>
-            <li>Гибкий график</li>
-            <li>Домашние задания и обратная связь</li>
-          </ul>
-
-          <a href="#signup" class="ll-btn ll-btn-primary ll-btn-full">Записаться</a>
-        </div>
-
-        <div class="ll-price-card ll-price-card-accent">
-          <div class="ll-popular-badge">Популярно</div>
-
-          <div class="ll-card-top">
-            <div class="ll-price-title">Индивидуальный трёхмесячный курс грамматики до уровня B1</div>
-            <div class="ll-price-value">2800 zł</div>
-            <div class="ll-price-note">полный курс</div>
-          </div>
-
-          <ul class="ll-list">
-            <li>35 часов практики</li>
-            <li>Готовые материалы с нуля до профи</li>
-            <li>Комфортный темп</li>
-            <li>Возможность разделить платёж на 2 или 3 части</li>
-          </ul>
-
-          <a href="#signup" class="ll-btn ll-btn-primary ll-btn-full">Узнать подробнее</a>
-        </div>
-
-        <div class="ll-price-card">
-          <div class="ll-card-top">
-            <div class="ll-price-title">Женский online speaking club</div>
-            <div class="ll-price-value">Набор в группы</div>
-            <div class="ll-price-note">график узнавайте лично у меня</div>
-          </div>
-
-          <ul class="ll-list">
-            <li>Формат для тех, кто хочет płynnie mówić po polsku</li>
-            <li>Уровни от A2 до B1</li>
-            <li>Группы набираются постоянно</li>
-          </ul>
-
-          <a href="#signup" class="ll-btn ll-btn-primary ll-btn-full">Записаться</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="ll-results">
-    <div class="ll-container">
-      <div class="ll-section-label ll-center">Результат</div>
-      <h2 class="ll-center">Что получают мои ученики</h2>
-
-      <div class="ll-grid-3">
-        <div class="ll-card">
-          <h3>Через 1 месяц</h3>
-          <p>Больше уверенности, понимание базовой структуры языка и первые диалоги без зажатости.</p>
-        </div>
-
-        <div class="ll-card">
-          <h3>Через 3 месяца</h3>
-          <p>Заметный прогресс в речи, грамматике, словарном запасе и восприятии польского на слух.</p>
-        </div>
-
-        <div class="ll-card">
-          <h3>В перспективе</h3>
-          <p>Системные знания, уверенность в общении и база для экзамена, учёбы, работы или переезда.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="ll-reviews">
-    <div class="ll-container">
-      <div class="ll-section-label ll-center">Отзывы</div>
-      <h2 class="ll-center">Что говорят ученики</h2>
-
-      <div class="ll-photo-strip">
-        <div class="ll-photo-grid">
-          <div class="ll-photo-item"><img src="review1.jpg" alt="Отзыв 1"></div>
-          <div class="ll-photo-item"><img src="review2.jpg" alt="Отзыв 2"></div>
-          <div class="ll-photo-item"><img src="review3.jpg" alt="Отзыв 3"></div>
-          <div class="ll-photo-item"><img src="review4.jpg" alt="Отзыв 4"></div>
-        </div>
-      </div>
-
-      <div class="ll-grid-3 ll-reviews-grid">
-        <div class="ll-card">
-          <p class="ll-review-text">
-            «Занимаемся польским онлайн несколько месяцев. Екатерина объясняет спокойно и понятно, подстраивается под уровень ученика. Уроки проходят без напряжения, но при этом есть заметный прогресс. Начали хвалить учителя в школе.»
-          </p>
-          <div class="ll-review-author">— Елена, мама ученицы</div>
-        </div>
-
-        <div class="ll-card">
-          <p class="ll-review-text">
-            «Готовились к экзамену по польскому на уровень B1. Преподаватель хорошо объясняет структуру экзамена, много практики по заданиям, которые реально встречаются на тесте. Благодаря этому сдала на 98% и попались темы, которые проходили.»
-          </p>
-          <div class="ll-review-author">— Виктория</div>
-        </div>
-
-        <div class="ll-card">
-          <p class="ll-review-text">
-            «Довольна женским разговорным клубом по польскому. Всё проходит легко и интересно, обсуждаем разные темы, которые нужны и в жизни, много говорим. После встреч появляется больше уверенности в разговоре😊»
-          </p>
-          <div class="ll-review-author">— Татьяна</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="ll-faq">
-    <div class="ll-container">
-      <div class="ll-section-label ll-center">FAQ</div>
-      <h2 class="ll-center">Частые вопросы</h2>
-
-      <div class="ll-accordion">
-        <div class="ll-acc-item">
-          <button class="ll-acc-btn">С какого уровня можно начать?</button>
-          <div class="ll-acc-content">
-            <p>С любого. Можно начать с нуля или продолжить обучение уже с имеющейся базой.</p>
+            <div class="ll-card">
+              <h3>В перспективе</h3>
+              <p>
+                Системные знания, уверенность в общении и база для экзамена,
+                учёбы, работы или переезда.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="ll-acc-item">
-          <button class="ll-acc-btn">Можно ли подготовиться к экзамену B1?</button>
-          <div class="ll-acc-content">
-            <p>Да. Это одно из основных направлений, с которым я работаю.</p>
+      <section class="ll-reviews">
+        <div class="ll-container">
+          <div class="ll-section-label ll-center">Отзывы</div>
+          <h2 class="ll-center">Что говорят ученики</h2>
+
+          <div class="ll-photo-strip">
+            <div class="ll-photo-grid">
+              <div class="ll-photo-item">
+                <img src="review1.jpg" alt="Отзыв 1" />
+              </div>
+              <div class="ll-photo-item">
+                <img src="review2.jpg" alt="Отзыв 2" />
+              </div>
+              <div class="ll-photo-item">
+                <img src="review3.jpg" alt="Отзыв 3" />
+              </div>
+              <div class="ll-photo-item">
+                <img src="review4.jpg" alt="Отзыв 4" />
+              </div>
+            </div>
+          </div>
+
+          <div class="ll-grid-3 ll-reviews-grid">
+            <div class="ll-card">
+              <p class="ll-review-text">
+                «Занимаемся польским онлайн несколько месяцев. Екатерина
+                объясняет спокойно и понятно, подстраивается под уровень
+                ученика. Уроки проходят без напряжения, но при этом есть
+                заметный прогресс. Начали хвалить учителя в школе.»
+              </p>
+              <div class="ll-review-author">— Елена, мама ученицы</div>
+            </div>
+
+            <div class="ll-card">
+              <p class="ll-review-text">
+                «Готовились к экзамену по польскому на уровень B1. Преподаватель
+                хорошо объясняет структуру экзамена, много практики по заданиям,
+                которые реально встречаются на тесте. Благодаря этому сдала на
+                98% и попались темы, которые проходили.»
+              </p>
+              <div class="ll-review-author">— Виктория</div>
+            </div>
+
+            <div class="ll-card">
+              <p class="ll-review-text">
+                «Довольна женским разговорным клубом по польскому. Всё проходит
+                легко и интересно, обсуждаем разные темы, которые нужны и в
+                жизни, много говорим. После встреч появляется больше уверенности
+                в разговоре😊»
+              </p>
+              <div class="ll-review-author">— Татьяна</div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="ll-acc-item">
-          <button class="ll-acc-btn">Как проходят занятия?</button>
-          <div class="ll-acc-content">
-            <p>Онлайн, в удобном формате, с материалами, разговорной практикой и домашними заданиями.</p>
+      <section class="ll-faq">
+        <div class="ll-container">
+          <div class="ll-section-label ll-center">FAQ</div>
+          <h2 class="ll-center">Частые вопросы</h2>
+
+          <div class="ll-accordion">
+            <div class="ll-acc-item">
+              <button class="ll-acc-btn">С какого уровня можно начать?</button>
+              <div class="ll-acc-content">
+                <p>
+                  С любого. Можно начать с нуля или продолжить обучение уже с
+                  имеющейся базой.
+                </p>
+              </div>
+            </div>
+
+            <div class="ll-acc-item">
+              <button class="ll-acc-btn">
+                Можно ли подготовиться к экзамену B1?
+              </button>
+              <div class="ll-acc-content">
+                <p>
+                  Да. Это одно из основных направлений, с которым я работаю.
+                </p>
+              </div>
+            </div>
+
+            <div class="ll-acc-item">
+              <button class="ll-acc-btn">Как проходят занятия?</button>
+              <div class="ll-acc-content">
+                <p>
+                  Онлайн, в удобном формате, с материалами, разговорной
+                  практикой и домашними заданиями.
+                </p>
+              </div>
+            </div>
+
+            <div class="ll-acc-item">
+              <button class="ll-acc-btn">Можно ли платить частями?</button>
+              <div class="ll-acc-content">
+                <p>
+                  Да, на трёхмесячный курс можно разделить оплату на 2 или 3
+                  части.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="ll-acc-item">
-          <button class="ll-acc-btn">Можно ли платить частями?</button>
-          <div class="ll-acc-content">
-            <p>Да, на трёхмесячный курс можно разделить оплату на 2 или 3 части.</p>
+      <section class="ll-cta" id="signup">
+        <div class="ll-container">
+          <div class="ll-cta-box">
+            <div class="ll-cta-left">
+              <div class="ll-section-label">Запись</div>
+              <h2>Запишитесь на занятие</h2>
+              <p>
+                Оставьте контакты, и я свяжусь с вами, чтобы подобрать удобный
+                формат и время занятий.
+              </p>
+            </div>
+
+            <form class="ll-form" id="leadForm">
+              <input type="text" name="name" placeholder="Ваше имя" required />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Телефон / Telegram / WhatsApp"
+                required
+              />
+              <input
+                type="text"
+                name="goal"
+                placeholder="Ваш уровень или цель"
+              />
+
+              <label class="ll-checkbox">
+                <input type="checkbox" name="privacy" required />
+                <span class="ll-privacy-note">
+                  Нажимая кнопку «Отправить», вы принимаете условия обработки
+                  персональных данных.
+                </span>
+              </label>
+
+              <button type="submit" class="ll-btn ll-btn-primary ll-btn-full">
+                Отправить
+              </button>
+
+              <div id="formMessage" class="ll-form-message"></div>
+            </form>
           </div>
+        </div>
+      </section>
+
+      <div class="ll-footer-note">
+        <div class="ll-container">
+          <p>Katera Studio</p>
+          <p>NIP: 5833558467</p>
+          <p>REGON: 543762844</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="ll-cta" id="signup">
-    <div class="ll-container">
-      <div class="ll-cta-box">
-        <div class="ll-cta-left">
-          <div class="ll-section-label">Запись</div>
-          <h2>Запишитесь на занятие</h2>
-          <p>
-            Оставьте контакты, и я свяжусь с вами, чтобы подобрать удобный формат и время занятий.
-          </p>
-        </div>
-
-        <form class="ll-form" id="leadForm">
-          <input type="text" name="name" placeholder="Ваше имя" required>
-          <input type="tel" name="phone" placeholder="Телефон / Telegram / WhatsApp" required>
-          <input type="text" name="goal" placeholder="Ваш уровень или цель">
-
-          <label class="ll-checkbox">
-            <input type="checkbox" name="privacy" required>
-            <span class="ll-privacy-note">
-              Нажимая кнопку «Отправить», вы принимаете условия обработки персональных данных.
-            </span>
-          </label>
-
-          <button type="submit" class="ll-btn ll-btn-primary ll-btn-full">Отправить</button>
-
-          <div id="formMessage" class="ll-form-message"></div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <div class="ll-footer-note">
-    <div class="ll-container">
-      <p>Katera Studio</p>
-      <p>NIP: 5833558467</p>
-      <p>REGON: 543762844</p>
-    </div>
-  </div>
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  document.querySelectorAll('.ll-acc-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      const item = this.parentElement;
-      item.classList.toggle('active');
-    });
-  });
-
-  const popup = document.getElementById('giftPopup');
-  const closePopupBtn = document.getElementById('closePopup');
-
-  if (closePopupBtn && popup) {
-    closePopupBtn.addEventListener('click', function() {
-      popup.classList.add('ll-hidden');
-    });
-
-    popup.addEventListener('click', function(e) {
-      if (e.target === popup) {
-        popup.classList.add('ll-hidden');
-      }
-    });
-  }
-
-  emailjs.init({
-    publicKey: "yDlbFD5jDcphog0lo"
-  });
-
-  const form = document.getElementById('leadForm');
-  const formMessage = document.getElementById('formMessage');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    formMessage.className = 'll-form-message';
-    formMessage.textContent = '';
-
-    emailjs.sendForm(
-      'service_8tobhyr',
-      'template_8tklikx',
-      form
-    ).then(function() {
-      formMessage.className = 'll-form-message success';
-      formMessage.textContent = 'Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время.';
-      form.reset();
-    }).catch(function(error) {
-      formMessage.className = 'll-form-message error';
-      formMessage.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз чуть позже.';
-      console.error('EmailJS error:', error);
-    });
-  });
-</script>
-
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
 </html>
